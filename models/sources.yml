@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: fivetran_raw
+    database: PC_FIVETRAN_DB
+    schema: '"dbo"'   # <-- important
+
+    tables:
+      - name: customers
+      - name: orders
+      - name: products
+      - name: order_items
+      - name: payments
+      - name: shipments
+      - name: support_tickets
+      - name: warehouses
+      - name: currency_rates

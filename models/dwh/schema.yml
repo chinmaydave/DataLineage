@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: Customer dimension table
+
+  - name: dim_product
+    description: Product dimension table
+
+  - name: fact_orders
+    description: Orders fact table
