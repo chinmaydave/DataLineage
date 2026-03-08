@@ -1,2 +1,17 @@
-{{ config(materialized='table', schema='OMMART_DWH') }}
-select * from {{ ref('stg_warehouses') }}
+{{ config(
+    materialized='incremental',
+    incremental_strategy='merge',
+    unique_key='"warehouse_id"',
+    schema='OMMART_DWH',
+    on_schema_change='sync_all_columns'
+) }}
+
+select *
+from {{ ref('stg_warehouses') }}
+
+{% if is_incremental() %}
+where "_fivetran_synced" > (
+    select coalesce(max("_fivetran_synced"), '1900-01-01'::timestamp_tz)
+    from {{ this }}
+)
+{% endif %}
